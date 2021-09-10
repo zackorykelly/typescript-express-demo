@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ts-node ./src/server.ts",
     "lint": "tslint -p tsconfig.json -c tslint.json",
-    "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts"
+    "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts",
+    "test": "jest"
   },
   "author": "Zack",
   "license": "ISC",
@@ -30,6 +31,9 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.2",
-    "@types/jsonwebtoken": "^8.5.5"
+    "@types/jest": "^27.0.1",
+    "@types/jsonwebtoken": "^8.5.5",
+    "jest": "^27.1.1",
+    "ts-jest": "^27.0.5"
   }
 }
