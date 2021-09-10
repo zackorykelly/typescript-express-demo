@@ -7,14 +7,14 @@ const addressSchema = new mongoose.Schema({
     street: String,
 });
 
-const userSchema = new mongoose.Schema(
-    {
-        address: addressSchema,
-        email: String,
-        firstName: String,
-        lastName: String,
-        password: String
-    });
+const userSchema = new mongoose.Schema({
+    address: addressSchema,
+    email: String,
+    name: String,
+    password: String,
+    twoFactorAuthenticationCode: String,
+    isTwoFactorAuthenticationEnabled: Boolean,
+});
 
 const userModel = mongoose.model<User & mongoose.Document>('User', userSchema);
 
