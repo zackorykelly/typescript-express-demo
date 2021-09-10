@@ -5,6 +5,7 @@ import Controller from '../interfaces/controller.interface';
 import validationMiddleware from '../middleware/validation.middleware';
 import CreatePostDto from './post.dto';
 import Post from './posts.entity';
+import RequestWithUser from '../interfaces/requestWithUser.interface';
 
 class PostsController implements Controller {
     public path = '/posts';
@@ -24,13 +25,13 @@ class PostsController implements Controller {
     }
 
     private getAllPosts = async (request: express.Request, response: express.Response) => {
-        const posts = await this.postRepository.find();
+        const posts = await this.postRepository.find({ relations: ['categories'] });
         response.send(posts);
     }
 
     private getPostById = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
         const id = request.params.id;
-        const post = await this.postRepository.findOne(id);
+        const post = await this.postRepository.findOne(id, { relations: ['categories'] });
         if (post) {
             response.send(post);
         } else {
@@ -50,9 +51,12 @@ class PostsController implements Controller {
         }
     }
 
-    private createPost = async (request: express.Request, response: express.Response) => {
+    private createPost = async (request: RequestWithUser, response: express.Response) => {
         const postData: CreatePostDto = request.body;
-        const newPost = this.postRepository.create(postData);
+        const newPost = this.postRepository.create({
+            ...postData,
+            author: request.user,
+        });
         await this.postRepository.save(newPost);
         response.send(newPost);
     }

@@ -4,8 +4,9 @@
   "description": "test project for learning typescript with express",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node ./src/server.ts"
+    "dev": "ts-node ./src/server.ts",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts"
   },
   "author": "Zack",
   "license": "ISC",
