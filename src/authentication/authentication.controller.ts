@@ -1,7 +1,7 @@
 import * as express from 'express';
 import Controller from '../interfaces/controller.interface';
 import validationMiddleware from '../middleware/validation.middleware';
-import CreateUserDto from '../users/user.dto';
+import CreateUserDto from '../user/user.dto';
 import AuthenticationService from './authentication.service';
 
 class AuthenticationController implements Controller {
