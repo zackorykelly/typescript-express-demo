@@ -1,7 +1,10 @@
 import 'dotenv/config';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
+import AddressController from './address/address.controller';
 import App from './app';
+import AuthenticationController from './authentication/authentication.controller';
+import CategoryController from './category/category.controller';
 import config from './ormconfig';
 import PostController from './posts/posts.controller';
 import validateEnv from './utils/validateEnv';
@@ -10,7 +13,8 @@ validateEnv();
 
 (async () => {
     try {
-        await createConnection(config);
+        const connection = await createConnection(config);
+        await connection.runMigrations();
     } catch (error) {
         console.log('Error while connecting to the database', error);
         return error;
@@ -18,6 +22,9 @@ validateEnv();
     const app = new App(
         [
             new PostController(),
+            new AuthenticationController(),
+            new AddressController(),
+            new CategoryController(),
         ],
     );
     app.listen();
